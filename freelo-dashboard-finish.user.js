@@ -3,8 +3,8 @@
 // @description  Možnost ukončovat úkoly přímo z dashboardu
 // @version     2
 // @match        https://app.freelo.cz/dashboard
-// @updateURL   https://github.com/hnizdil/userscripts/raw/master/freelo-dashboard-finish.user.js
-// @downloadURL https://github.com/hnizdil/userscripts/raw/master/freelo-dashboard-finish.user.js
+// @updateURL   https://raw.githubusercontent.com/hnizdil/userscripts/master/freelo-dashboard-finish.user.js
+// @downloadURL https://raw.githubusercontent.com/hnizdil/userscripts/master/freelo-dashboard-finish.user.js
 // ==/UserScript==
 
 (function($) {
