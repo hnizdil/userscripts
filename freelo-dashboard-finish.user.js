@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Freelo dashboard task finish
-// @description  Možnost ukončovat úkoly přímo z dashboardu
-// @version     2
-// @match        https://app.freelo.cz/dashboard
+// @name        Freelo Dashboard Task Finish
+// @description Možnost ukončovat úkoly přímo z dashboardu
+// @version     3
+// @match       https://app.freelo.cz/dashboard
 // @updateURL   https://raw.githubusercontent.com/hnizdil/userscripts/master/freelo-dashboard-finish.user.js
 // @downloadURL https://raw.githubusercontent.com/hnizdil/userscripts/master/freelo-dashboard-finish.user.js
 // ==/UserScript==
