@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Freelo Dashboard Task Finish
 // @description Možnost ukončovat úkoly přímo z dashboardu
-// @version     3
+// @version     4
 // @match       https://app.freelo.cz/dashboard
 // @updateURL   https://raw.githubusercontent.com/hnizdil/userscripts/master/freelo-dashboard-finish.user.js
 // @downloadURL https://raw.githubusercontent.com/hnizdil/userscripts/master/freelo-dashboard-finish.user.js
@@ -10,17 +10,25 @@
 (function($) {
 	'use strict';
 
-	const $tasks = $('div.task-new-dashboard');
+	if (!$) {
+		return;
+	}
 
-	$tasks.forEach(task => {
-		const $checkbox = $('<input type=checkbox class=finish />');
-		const $star = $('.task-new-dashboard__my-priority', task);
-		$checkbox.css('margin', 0);
-		$star.empty();
-		$star.append($checkbox);
-	})
+	function replaceStars() {
+		const $tasks = $('div.task-new-dashboard');
+		$tasks.forEach(task => {
+			const $star = $('.task-new-dashboard__my-priority', task);
+			if ($star.length != 1) {
+				return;
+			}
+			const $checkbox = $('<input type=checkbox class=finish-task />');
+			$checkbox.css('margin', 0);
+			$star.empty();
+			$star.append($checkbox);
+		})
+	};
 
-	$(document).on('change', ':checkbox.finish', event => {
+	$(document).on('change', ':checkbox.finish-task', event => {
 		const $checkbox = $(event.target);
 		const isChecked = $checkbox.prop('checked');
 		const taskId = $checkbox.closest('li').attr('data-task-id');
@@ -41,4 +49,10 @@
 			}
 		});
 	});
+
+	replaceStars();
+
+	const dashboardBody = document.getElementById('js-dashboard-filters-body');
+	const observer = new MutationObserver(replaceStars);
+	observer.observe(dashboardBody, { childList: true });
 })(jQuery);
