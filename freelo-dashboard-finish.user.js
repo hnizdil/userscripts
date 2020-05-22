@@ -1,6 +1,5 @@
 // ==UserScript==
-// @name        Freelo Dashboard Task Finish
-// @description Možnost ukončovat úkoly přímo z dashboardu
+// @name        Freelo Dashboard
 // @version     4
 // @match       https://app.freelo.cz/dashboard
 // @updateURL   https://raw.githubusercontent.com/hnizdil/userscripts/master/freelo-dashboard-finish.user.js
@@ -14,6 +13,17 @@
 		return;
 	}
 
+	function sortClients() {
+		const $headers = $('a[href^="/project/"]');
+		$headers.each((_, header) => {
+			const $header = $(header);
+			$header.next('ul').addBack().wrapAll(`<div class=client data-name="${$header.text().trim()}" />`);
+		});
+		$('.client').sort((a, b) => {
+			return a.dataset.name.localeCompare(b.dataset.name);
+		}).appendTo('#js-dashboard-filter-data-wrapper');
+	}
+
 	function replaceStars() {
 		const $tasks = $('div.task-new-dashboard');
 		$tasks.forEach(task => {
@@ -23,10 +33,9 @@
 			}
 			const $checkbox = $('<input type=checkbox class=finish-task />');
 			$checkbox.css('margin', 0);
-			$star.empty();
-			$star.append($checkbox);
+			$star.empty().append($checkbox);
 		})
-	};
+	}
 
 	$(document).on('change', ':checkbox.finish-task', event => {
 		const $checkbox = $(event.target);
@@ -50,9 +59,14 @@
 		});
 	});
 
-	replaceStars();
+	function run() {
+		replaceStars();
+		sortClients();
+	}
+
+	run();
 
 	const dashboardBody = document.getElementById('js-dashboard-filters-body');
-	const observer = new MutationObserver(replaceStars);
+	const observer = new MutationObserver(run);
 	observer.observe(dashboardBody, { childList: true });
 })(jQuery);
