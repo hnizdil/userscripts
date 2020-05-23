@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Freelo Dashboard
-// @version     4
+// @version     5
 // @match       https://app.freelo.cz/dashboard
 // @updateURL   https://raw.githubusercontent.com/hnizdil/userscripts/master/freelo-dashboard-finish.user.js
 // @downloadURL https://raw.githubusercontent.com/hnizdil/userscripts/master/freelo-dashboard-finish.user.js
@@ -59,14 +59,31 @@
 		});
 	});
 
+	function observeWrapper() {
+		const observer = new MutationObserver((_, observer) => {
+			observer.disconnect();
+			run();
+			observeWrapper();
+		});
+		const wrapper = document.getElementById('js-dashboard-filter-data-wrapper');
+		observer.observe(wrapper, { childList: true });
+	}
+
+	function observeBody() {
+		const bodyObserver = new MutationObserver(() => {
+			run();
+			observeWrapper();
+		});
+		const body = document.getElementById('js-dashboard-filters-body');
+		bodyObserver.observe(body, { childList: true });
+	}
+
 	function run() {
 		replaceStars();
 		sortClients();
 	}
 
 	run();
-
-	const dashboardBody = document.getElementById('js-dashboard-filters-body');
-	const observer = new MutationObserver(run);
-	observer.observe(dashboardBody, { childList: true });
+	observeBody();
+	observeWrapper();
 })(jQuery);
