@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Freelo Dashboard
-// @version     5
+// @version     6
 // @match       https://app.freelo.cz/dashboard
 // @updateURL   https://github.com/hnizdil/userscripts/raw/master/freelo-dashboard.user.js
 // @downloadURL https://github.com/hnizdil/userscripts/raw/master/freelo-dashboard.user.js
