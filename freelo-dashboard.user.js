@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Freelo Dashboard
-// @version     6
-// @match       https://app.freelo.cz/dashboard
+// @version     7
+// @match       https://app.freelo.io/dashboard
 // @updateURL   https://github.com/hnizdil/userscripts/raw/master/freelo-dashboard.user.js
 // @downloadURL https://github.com/hnizdil/userscripts/raw/master/freelo-dashboard.user.js
 // ==/UserScript==
